@@ -4,7 +4,7 @@
  */
 package movement;
 
-import java.util.Random;
+import java.util.Random; 
 
 import core.Coord;
 import core.DTNSim;
@@ -12,6 +12,8 @@ import core.ModuleCommunicationBus;
 import core.Settings;
 import core.SimClock;
 import core.SimError;
+
+import core.DTNHost;
 
 /**
  * <P>Superclass for all movement models. All subclasses must contain at least a 
@@ -56,6 +58,11 @@ public abstract class MovementModel {
 	private int maxY;
 	
 	protected ModuleCommunicationBus comBus;
+	
+	protected DTNHost host;
+	
+	public void setHost(DTNHost host) {
+	}
 
 	// static initialization of all movement models' random number generator
 	static {
@@ -240,7 +247,7 @@ public abstract class MovementModel {
 	 * Returns simply the name of the movement model class
 	 * @return the name of the movement model class
 	 */
-	public String toString() {
+	public String toString() { 
 		return this.getClass().getSimpleName();
 	}
 	
