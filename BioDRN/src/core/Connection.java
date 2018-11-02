@@ -216,6 +216,14 @@ public abstract class Connection {
 		(this.msgOnFly != null ? " transferring " + this.msgOnFly  + 
 				" from " + this.msgFromNode : "");
 	}
+	
+	// my code
+		public boolean isSender(DTNHost d){
+			if(this.msgFromNode == d)
+				return true;
+			else
+				return false;
+		}
 
 }
 

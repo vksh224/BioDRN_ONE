@@ -8,6 +8,7 @@ import gui.playfield.PlayField;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseWheelListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -61,7 +62,8 @@ public class DTNSimGUI extends DTNSimUI {
 	private void initGUI() {	
 		this.field = new PlayField(world);
 		
-		this.field.addMouseListener(new PlayfieldMouseHandler());
+		this.field.addMouseListener(new PlayfieldMouseHandler2());
+		//this.field.addMouseListener(new PlayfieldMouseHandler());
 		this.field.addMouseWheelListener(new PlayfieldMouseHandler());
 		
 		this.guiControls = new GUIControls(this,this.field);
@@ -315,6 +317,16 @@ public class DTNSimGUI extends DTNSimUI {
 			// nothing to do here
 		}
 	}
+	
+	private class PlayfieldMouseHandler2 extends MouseAdapter implements MouseListener {
+
+		public void mouseClicked(MouseEvent e) {
+			java.awt.Point p = e.getPoint();
+			Coord worldCoord = field.getWorldPosition(new Coord(p.x, p.y));
+			System.out.println("Mouse clicked: " + worldCoord.getX() + " "
+					+ worldCoord.getY());
+		}
+}
 	
 	/**
 	 * Handler for playfield's mouse clicks.

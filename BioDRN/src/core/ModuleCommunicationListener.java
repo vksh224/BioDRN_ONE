@@ -18,4 +18,5 @@ public interface ModuleCommunicationListener {
 	 */ 
 	public void moduleValueChanged(String key, Object newValue);
 	
+	
 }

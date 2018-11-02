@@ -87,7 +87,7 @@ public class InCenterVehicleMovement extends MapBasedMovement {
 					Double.parseDouble(values[i * 2 + 1]));
 //			System.out.println(waypoints[i].getX());
 		}
-		//System.out.println(waypoints);
+		// System.out.println(waypoints);
 		wayArray.add(waypoints);
 	}
 

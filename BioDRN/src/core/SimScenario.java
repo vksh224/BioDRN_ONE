@@ -16,6 +16,8 @@ import movement.MovementModel;
 import movement.map.SimMap;
 import routing.MessageRouter;
 
+import movement.InCenterVehicleMovement;
+
 /**
  * A simulation scenario used for getting and storing the settings of a
  * simulation run.
@@ -403,6 +405,11 @@ public class SimScenario implements Serializable {
 				DTNHost host = new DTNHost(this.messageListeners, 
 						this.movementListeners,	gid, mmNetInterfaces, comBus, 
 						mmProto, mRouterProto);
+				
+				if(mmProto instanceof InCenterVehicleMovement) {
+					mmProto.setHost(host);
+				}
+				
 				hosts.add(host);
 			}
 		}

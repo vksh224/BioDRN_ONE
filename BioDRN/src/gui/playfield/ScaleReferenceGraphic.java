@@ -14,11 +14,11 @@ import java.awt.Graphics2D;
  */
 public class ScaleReferenceGraphic extends PlayFieldGraphic {
 	/** length of the reference bar (map meters) */
-	private final int LENGTH = 100; 
+	private final int LENGTH = 10; 
 	/** x position of the left end of the bar (pixels) */
-	private final int X_POS = 20;
+	private final int X_POS = 100;
 	/** y position of the left end of the bar (pixels) */
-	private final int Y_POS = 20;
+	private final int Y_POS = 100;
 	/** height of the bar (pixels) */
 	private final int SIZE = 8; 
 	/** size of the font */
