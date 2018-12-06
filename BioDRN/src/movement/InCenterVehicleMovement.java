@@ -95,7 +95,7 @@ public class InCenterVehicleMovement extends MapBasedMovement {
 	public void setHost(DTNHost host) {
 		this.host = host;
 		this.address=host.getAddress();
-		System.out.println(address+" "+firstCD);
+		//System.out.println(address+" "+firstCD);
 		if(wayArray.size()>(address - firstCD) )
 		waypoints=wayArray.get(address-firstCD);
 		//System.out.println(wayArray.get(address-firstCD));

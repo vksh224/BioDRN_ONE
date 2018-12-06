@@ -176,4 +176,10 @@ public class EpidemicOracleRouter extends ActiveRouter {
 		allRouters = new ArrayList<EpidemicOracleRouter>();
 	}
 
+	@Override
+	public void moduleValueChanged(String key, Object newValue) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

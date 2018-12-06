@@ -70,4 +70,10 @@ public class FirstContactRouter extends ActiveRouter {
 		return new FirstContactRouter(this);
 	}
 
+	@Override
+	public void moduleValueChanged(String key, Object newValue) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

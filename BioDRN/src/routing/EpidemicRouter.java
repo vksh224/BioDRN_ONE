@@ -34,6 +34,7 @@ public class EpidemicRouter extends ActiveRouter {
 	@Override
 	public void update() {
 		super.update();
+		reduceSendingAndScanningEnergy();
 		if (isTransferring() || !canStartTransfer()) {
 			return; // transferring, don't try other connections yet
 		}
@@ -51,6 +52,12 @@ public class EpidemicRouter extends ActiveRouter {
 	@Override
 	public EpidemicRouter replicate() {
 		return new EpidemicRouter(this);
+	}
+
+	@Override
+	public void moduleValueChanged(String key, Object newValue) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

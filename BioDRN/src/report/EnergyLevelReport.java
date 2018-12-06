@@ -4,6 +4,7 @@
  */
 package report;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
 
@@ -74,23 +75,75 @@ public class EnergyLevelReport extends Report implements UpdateListener {
 	 * Creates a snapshot of energy levels 
 	 * @param hosts The list of hosts in the world
 	 */
-	private void createSnapshot(List<DTNHost> hosts) {
-		write ("[" + (int)getSimTime() + "]"); /* simulation time stamp */
-		for (DTNHost h : hosts) {
-			if (this.reportedNodes != null && 
-				!this.reportedNodes.contains(h.getAddress())) {
-				continue; /* node not in the list */
-			}
-			Double value = (Double)h.getComBus().
-				getProperty(routing.EnergyAwareRouter.ENERGY_VALUE_ID);
-			if (value == null) {
-				throw new SimError("Host " + h + 
-						" is not using an energy aware router");
-			}
-			
-			write(h.toString() + " " +  format(value));
+//	private void createSnapshot(List<DTNHost> hosts) {
+//		write ("[" + (int)getSimTime() + "]"); /* simulation time stamp */
+//		for (DTNHost h : hosts) {
+//			if (this.reportedNodes != null && 
+//				!this.reportedNodes.contains(h.getAddress())) {
+//				continue; /* node not in the list */
+//			}
+//			Double value = (Double)h.getComBus().
+//				getProperty(routing.EnergyAwareRouter.ENERGY_VALUE_ID);
+//			if (value == null) {
+//				throw new SimError("Host " + h + 
+//						" is not using an energy aware router");
+//			}
+//			
+//			write(h.toString() + " " +  format(value));
+//		}
+//	
+//	}
+//	
+//}
+	
+/**
+ * Creates a snapshot of energy levels 
+ * @param hosts The list of hosts in the world
+ */
+private void createSnapshot(List<DTNHost> hosts) {
+	//write ("[" + (int)getSimTime() + "]"); /* simulation time stamp */
+	double totEnergy = 0;
+	int deadNodesNum = 0;
+	int countOfSNs = 0;
+	for (DTNHost h : hosts) {
+		if(h.toString().startsWith("n")){
+			countOfSNs++;
 		}
+	}
+	for (DTNHost h : hosts) {
+		if(h.toString().startsWith("CD") || h.toString().startsWith("CS") || h.toString().startsWith("G"))
+			continue;
+		
+		if (this.reportedNodes != null && 
+			!this.reportedNodes.contains(h.getAddress())) {
+			continue; /* node not in the list */
+		}
+		Double value = (Double)h.getComBus().getProperty("Energy.value");
+		//Double totalValue = (Double)h.getComBus().getProperty("TotalEnergy.value");
+		//Double value = h.getCurEnergy();
+		if (value == null) {
+			//throw new SimError("Host " + h + 
+				//	" is not using an energy aware router");
+			continue;
+		}
+		if(h.toString().startsWith("n")){
+			totEnergy+= value;
+		}
+		if(value<=0)
+			deadNodesNum += 1;
+		
+		BigDecimal bd = new BigDecimal(getSimTime());
+		bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
+		
+		//if(h.toString().startsWith("n"))
+		write(bd +"   "+ h.toString() + " " +  format(value)+"  ");
+	}
+	BigDecimal bd = new BigDecimal(getSimTime());
+	bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
+	write( bd + " Total Energy consumed: " +" "+totEnergy+" "  +(countOfSNs - deadNodesNum) + " ");
+	//write(deadNodesNum + " ");
 	
 	}
 	
 }
+

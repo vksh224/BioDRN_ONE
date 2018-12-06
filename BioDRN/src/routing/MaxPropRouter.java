@@ -572,4 +572,10 @@ public class MaxPropRouter extends ActiveRouter {
 		MaxPropRouter r = new MaxPropRouter(this);
 		return r;
 	}
+
+	@Override
+	public void moduleValueChanged(String key, Object newValue) {
+		// TODO Auto-generated method stub
+		
+	}
 }

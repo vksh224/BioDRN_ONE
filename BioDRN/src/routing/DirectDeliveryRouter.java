@@ -36,4 +36,10 @@ public class DirectDeliveryRouter extends ActiveRouter {
 	public DirectDeliveryRouter replicate() {
 		return new DirectDeliveryRouter(this);
 	}
+
+	@Override
+	public void moduleValueChanged(String key, Object newValue) {
+		// TODO Auto-generated method stub
+		
+	}
 }

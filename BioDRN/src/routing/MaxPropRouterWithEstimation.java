@@ -716,4 +716,10 @@ public class MaxPropRouterWithEstimation extends ActiveRouter {
 		MaxPropRouterWithEstimation r = new MaxPropRouterWithEstimation(this);
 		return r;
 	}
+
+	@Override
+	public void moduleValueChanged(String key, Object newValue) {
+		// TODO Auto-generated method stub
+		
+	}
 }

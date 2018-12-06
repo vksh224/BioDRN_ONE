@@ -300,4 +300,10 @@ public class ProphetRouter extends ActiveRouter {
 		return r;
 	}
 
+	@Override
+	public void moduleValueChanged(String key, Object newValue) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

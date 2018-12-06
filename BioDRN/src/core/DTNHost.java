@@ -33,7 +33,11 @@ public class DTNHost implements Comparable<DTNHost> {
 	private List<MovementListener> movListeners;
 	private List<NetworkInterface> net;
 	private ModuleCommunicationBus comBus;
-
+	
+	//Bio-DRN
+	private ArrayList<String> currentNodeNeighborList;
+	private ArrayList<DTNHost> failedNodeList;
+	
 	static {
 		DTNSim.registerForReset(DTNHost.class.getCanonicalName());
 		reset();
@@ -499,6 +503,17 @@ public class DTNHost implements Comparable<DTNHost> {
 	 */
 	public int compareTo(DTNHost h) {
 		return this.getAddress() - h.getAddress();
+	}
+
+	
+	//Bio-DRN Functions
+	public void setNeighborList(ArrayList<String> currentNodeNeighborList) {
+		this.currentNodeNeighborList = currentNodeNeighborList;
+		
+	}
+	
+	public List<String> getNeighborList(){
+		return this.currentNodeNeighborList;
 	}
 
 }
