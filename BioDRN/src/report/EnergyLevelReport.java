@@ -140,7 +140,7 @@ private void createSnapshot(List<DTNHost> hosts) {
 	}
 	BigDecimal bd = new BigDecimal(getSimTime());
 	bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
-	write( bd + " Total Energy consumed: " +" "+totEnergy+" "  +(countOfSNs - deadNodesNum) + " ");
+	write( bd + " " + "available_energy:" + " " + totEnergy +" " + (countOfSNs - deadNodesNum));
 	//write(deadNodesNum + " ");
 	
 	}
