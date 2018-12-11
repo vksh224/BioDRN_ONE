@@ -69,8 +69,8 @@ def get_energy_stat(file_name, time):
 
 folders = ('Nepal_Orig', 'Nepal_Bio')
 routers = ('BioDRNRouter',)
-endTimes = ('900', '1800', '2700', '3600',)
-generators = ('MessageBurstGenerator',)
+endTimes = ('900', '1800', '2700', '3600', '4500', '5400', '6300', '7200')
+generators = ('MessageEventGenerator',)
 rngSeed =('1', )
 # Scenario.name = %%Group.router%%_%%Scenario.endTime%%_%%Events1.class%%_%%MovementModel.rngSeed%%
 
