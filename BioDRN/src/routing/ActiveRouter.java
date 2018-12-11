@@ -5,6 +5,7 @@
 package routing;
 
 import input.NeighborListReader;
+import input.FailedNodeListReader;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -83,7 +84,8 @@ public abstract class ActiveRouter extends MessageRouter implements ModuleCommun
 	private static Random rng = null;
 	
 	private double initTime;
-	private static NeighborListReader reader;
+	private static NeighborListReader neighborListReader;
+	private static FailedNodeListReader failedNodeListReader;
 	private double samplingInterval = 600;
 	private double lastSamplingUpdate = 0;
 	private ArrayList<String >currentNodeNeighborList;
@@ -134,7 +136,12 @@ public abstract class ActiveRouter extends MessageRouter implements ModuleCommun
 		
 		if(s.contains("neighborListFile")){
 			String filePath = s.getSetting("neighborListFile");
-			reader = new NeighborListReader(filePath);
+			neighborListReader = new NeighborListReader(filePath);
+		}
+		
+		if(s.contains("failedNodeListFile")){
+			String filePath = s.getSetting("failedNodeListFile");
+			failedNodeListReader = new FailedNodeListReader(filePath);
 		}
 		
 	}
@@ -721,17 +728,17 @@ public abstract class ActiveRouter extends MessageRouter implements ModuleCommun
 	//Update neighbor list based on time slot and failed nodes
 	protected void updateNeighborList() {
 		if (SimClock.getIntTime() == this.lastSamplingUpdate) {
-			currentNodeNeighborList = reader.getNeighborList(getHost().toString(), SimClock.getIntTime());
+			currentNodeNeighborList = neighborListReader.getNeighborList(getHost().toString(), SimClock.getIntTime());
 			this.lastSamplingUpdate += this.samplingInterval;
 			getHost().setNeighborList(currentNodeNeighborList);
 			
-//			failedNodeList = getHost().getFailedNodeList(SimClock.getIntTime());
+			failedNodeList = failedNodeListReader.getFailedNodeList(SimClock.getIntTime());
 			
 			if(currentNodeNeighborList != null && getHost().toString().matches("n10")){
 				System.out.println("Current energy; "+ getHost().getComBus().getDouble(ENERGY_VALUE_ID, -1));
 				System.out.println("At time: " + SimClock.getIntTime() +" Neighorlist: ");
 				System.out.println("Node " + getHost().toString() +" : " + currentNodeNeighborList.toString());
-//				System.out.println("Failed node list: " + failedNodeList);
+				System.out.println("Failed node list: " + failedNodeList);
 			}
 		}	
 	}
