@@ -7,7 +7,7 @@ Scenario.name = %%Group.router%%_%%Scenario.endTime%%_%%Events1.class%%_%%Moveme
 Scenario.simulateConnections = true
 Scenario.updateInterval = 0.1
 # 43200s == 12h
-Scenario.endTime = [900; 1800; 2700; 3600; 4500; 5400; 6300; 7200]
+Scenario.endTime = [1800; 3600; 5400; 7200; 9000; 10800; 12600; 14400; 16200; 18000; 19800; 21600]
 
 ## Interface-specific settings:
 # type : which interface class the interface belongs to
@@ -23,7 +23,7 @@ btInterface.transmitSpeed = 250k
 btInterface.transmitRange = 150
 
 wifiInterface.type = SimpleBroadcastInterface
-wifiInterface.transmitSpeed = 250k
+wifiInterface.transmitSpeed = 1M
 wifiInterface.transmitRange = 500
 
 ClusterInterface.type = SimpleBroadcastInterface
@@ -57,8 +57,11 @@ ExternalMovement.file = NodePosition/ext_position_74.txt
 
 # Common settings for all groups
 Group.movementModel = ShortestPathMapBasedMovement
-Group.router = [BioDRNRouter]
-#Group.router = EpidemicRouter
+Group.router = [BioDRNRouter; BioDRNSnWRouter; BioDRNProphetRouter]
+
+SprayAndWaitRouter.nrofCopies = [100]
+SprayAndWaitRouter.binaryMode = [true]
+ProphetRouter.secondsInTimeUnit = 60
 
 Group.samplingInterval = 900
 Group.lastCCID = 1
@@ -168,13 +171,13 @@ Group5.speed = 1, 5
 # How many event generators
 Events.nrof = 1
 # Class of the first event generator
-Events1.class = [MessageBurstGenerator]
+Events1.class = [MessageEventGenerator]
 # (following settings are specific for the MessageEventGenerator class)
 # Creation interval in seconds (one new message every 25 to 35 seconds)
-Events1.interval = 300, 600
+Events1.interval = [25, 35] 
 
 # Message sizes (500kB - 1MB)
-Events1.size = 100k, 200k
+Events1.size = 500k, 1M
 
 # range of message source/destination addresses
 Events1.hosts= 10, 64
@@ -185,7 +188,7 @@ Events1.prefix = M
 
 ## Movement model settings
 # seed for movement models' pseudo random number generator (default = 0)
-MovementModel.rngSeed = [1; 2]
+MovementModel.rngSeed = [1]
 # World's size for Movement Models without implicit size (width, height; meters)
 MovementModel.worldSize = 10000, 10000
 # How long time to move hosts in the world before real simulation
@@ -205,7 +208,7 @@ Report.nrofReports = 3
 Report.warmup = 0
 # default directory of reports (can be overridden per Report with output setting)
 
-Report.reportDir = reports/Nepal_Orig/
+Report.reportDir = reports/
 
 # Report classes to load
 Report.report1 = MessageStatsReport
