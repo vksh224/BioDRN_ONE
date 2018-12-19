@@ -141,34 +141,34 @@ public class EnergyAwareRouter extends ActiveRouter
 	 * Reduces the energy reserve for the amount that is used by sending data
 	 * and scanning for the other nodes. 
 	 */
-//	protected void reduceSendingAndScanningEnergy() {
-//		double simTime = SimClock.getTime();
-//		
-//		if (this.comBus == null) {
-//			this.comBus = getHost().getComBus();
-//			this.comBus.addProperty(ENERGY_VALUE_ID, this.currentEnergy);
-//			this.comBus.subscribe(ENERGY_VALUE_ID, this);
-//		}
-//		
-//		if (this.currentEnergy <= 0) {
-//			/* turn radio off */
-//			this.comBus.updateProperty(NetworkInterface.RANGE_ID, 0.0);
-//			return; /* no more energy to start new transfers */
-//		}
-//		
-//		if (simTime > this.lastUpdate && sendingConnections.size() > 0) {
-//			/* sending data */
-//			reduceEnergy((simTime - this.lastUpdate) * this.transmitEnergy);
-//		}
-//		this.lastUpdate = simTime;
-//		
-//		if (simTime > this.lastScanUpdate + this.scanInterval) {
-//			/* scanning at this update round */
-//			reduceEnergy(this.scanEnergy);
-//			this.lastScanUpdate = simTime;
-//		}
-//	}
-//	
+	protected void reduceSendingAndScanningEnergy() {
+		double simTime = SimClock.getTime();
+		
+		if (this.comBus == null) {
+			this.comBus = getHost().getComBus();
+			this.comBus.addProperty(ENERGY_VALUE_ID, this.currentEnergy);
+			this.comBus.subscribe(ENERGY_VALUE_ID, this);
+		}
+		
+		if (this.currentEnergy <= 0) {
+			/* turn radio off */
+			this.comBus.updateProperty(NetworkInterface.RANGE_ID, 0.0);
+			return; /* no more energy to start new transfers */
+		}
+		
+		if (simTime > this.lastUpdate && sendingConnections.size() > 0) {
+			/* sending data */
+			reduceEnergy((simTime - this.lastUpdate) * this.transmitEnergy);
+		}
+		this.lastUpdate = simTime;
+		
+		if (simTime > this.lastScanUpdate + this.scanInterval) {
+			/* scanning at this update round */
+			reduceEnergy(this.scanEnergy);
+			this.lastScanUpdate = simTime;
+		}
+	}
+	
 	@Override
 	public void update() {
 		super.update();
