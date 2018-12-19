@@ -1,0 +1,246 @@
+#
+# Default settings for the simulation
+#
+
+## Scenario settings
+#Scenario.name = %%Group.router%%_%%Scenario.endTime%%_%%Events1.class%%_%%MovementModel.rngSeed%%
+Scenario.name = %%Group.router%%_%%Scenario.endTime%%_%%Group.neighborListFile%%
+Scenario.simulateConnections = true
+Scenario.updateInterval = 0.1
+# 43200s == 12h
+#Scenario.endTime = [1800; 3600; 5400; 7200; 9000; 10800; 12600; 14400; 16200; 18000; 19800; 21600]
+Scenario.endTime = [7200]
+
+## Interface-specific settings:
+# type : which interface class the interface belongs to
+# For different types, the sub-parameters are interface-specific
+# For SimpleBroadcastInterface, the parameters are:
+# transmitSpeed : transmit speed of the interface (bytes per second) 
+# transmitRange : range of the interface (meters)
+
+# "Bluetooth" interface for all nodes
+btInterface.type = SimpleBroadcastInterface
+# Transmit speed of 2 Mbps = 250kBps
+btInterface.transmitSpeed = 250k
+btInterface.transmitRange = 150
+
+wifiInterface.type = SimpleBroadcastInterface
+wifiInterface.transmitSpeed = 1M
+wifiInterface.transmitRange = 500
+
+ClusterInterface.type = SimpleBroadcastInterface
+ClusterInterface.transmitSpeed = 250k
+ClusterInterface.transmitRange = 200
+
+# Define 6 different node groups
+Scenario.nrofHostGroups = 5
+
+## Group-specific settings:
+# groupID : Group's identifier. Used as the prefix of host names
+# nrofHosts: number of hosts in the group
+# movementModel: movement model of the hosts (valid class name from movement package)
+# waitTime: minimum and maximum wait times (seconds) after reaching destination
+# speed: minimum and maximum speeds (m/s) when moving on a path
+# bufferSize: size of the message buffer (bytes)
+# router: router used to route messages (valid class name from routing package)
+# activeTimes: Time intervals when the nodes in the group are active (start1, end1, start2, end2, ...)
+# msgTtl : TTL (minutes) of the messages created by this host group, default=infinite
+
+## Group and movement model specific settings
+# pois: Points Of Interest indexes and probabilities (poiIndex1, poiProb1, poiIndex2, poiProb2, ... )
+#       for ShortestPathMapBasedMovement
+# okMaps : which map nodes are OK for the group (map file indexes), default=all 
+#          for all MapBasedMovent models
+# routeFile: route's file path - for MapRouteMovement
+# routeType: route's type - for MapRouteMovement
+
+# Common settings for all groups
+Group.movementModel = ShortestPathMapBasedMovement
+#Group.router = [BioDRNRouter; BioDRNSnWRouter; BioDRNProphetRouter]
+Group.router = [BioDRNRouter]
+
+SprayAndWaitRouter.nrofCopies = [100]
+SprayAndWaitRouter.binaryMode = [true]
+ProphetRouter.secondsInTimeUnit = 60
+
+Group.samplingInterval = 1800
+Group.lastCCID = 1
+
+Group.neighborListFile = [NeighborList/0_0/O_137.txt; NeighborList/0_0/B_137.txt; NeighborList/0_0/S_137.txt; NeighborList/0_0/R_137.txt; NeighborList/0_0/K2_137.txt; NeighborList/0_0/K4_137.txt] 
+Group.failedNodeListFile = FailedNodeList/0_0/failed_nodelist_137.txt
+ExternalMovement.file = NodePosition/0_0/ext_position_137.txt
+
+Group.bufferSize = 500M
+Group.waitTime = 0, 120
+# All nodes have the bluetooth interface
+Group.nrofInterfaces = 1
+Group.interface1 = btInterface
+
+Group.initialEnergy = 6000, 6000
+Group.scanEnergy= 3
+Group.transmitEnergy= 0.6
+Group.energyWarmup= 0
+Group.scanInterval= 60
+#2 = active
+Group.isEnergyConstrained = 2
+
+Group.DMS=30
+Group.waypoints1 = 4097, 4606, 2496, 3995, 3615, 3635, 4265, 5434, 
+Group.waypoints2 = 4097, 4606, 2496, 3995, 3615, 3635, 4265, 5434, 
+Group.waypoints3 = 4097, 4606, 3615, 3635, 4265, 5434, 2496, 3995, 4265, 5434, 
+Group.waypoints4 = 4097, 4606, 2496, 3995, 3615, 3635, 2496, 3995, 3615, 3635, 4265, 5434, 
+Group.waypoints5 = 4097, 4606, 3615, 3635, 2496, 3995, 
+Group.waypoints6 = 4097, 4606, 4265, 5434, 3615, 3635, 4265, 5434, 2496, 3995, 4265, 5434, 
+Group.waypoints7 = 4097, 4606, 3615, 3635, 2496, 3995, 3615, 3635, 4265, 5434, 2496, 3995, 
+Group.waypoints8 = 4097, 4606, 4265, 5434, 2496, 3995, 3615, 3635, 2496, 3995, 3615, 3635, 
+Group.waypoints9 = 4097, 4606, 4265, 5434, 3615, 3635, 2496, 3995, 
+Group.waypoints10 = 4097, 4606, 4265, 5434, 2496, 3995, 3615, 3635, 
+Group.waypoints11 = 4097, 4606, 4265, 5434, 2496, 3995, 4265, 5434, 3615, 3635, 
+Group.waypoints12 = 4097, 4606, 2496, 3995, 3615, 3635, 
+Group.waypoints13 = 4097, 4606, 4265, 5434, 2496, 3995, 3615, 3635, 4265, 5434, 4265, 5434, 
+Group.waypoints14 = 4097, 4606, 3615, 3635, 2496, 3995, 3615, 3635, 
+Group.waypoints15 = 4097, 4606, 2496, 3995, 4265, 5434, 4265, 5434, 3615, 3635, 
+Group.waypoints16 = 4097, 4606, 2496, 3995, 3615, 3635, 2496, 3995, 
+Group.waypoints17 = 4097, 4606, 4265, 5434, 3615, 3635, 2496, 3995, 
+Group.waypoints18 = 4097, 4606, 4265, 5434, 4265, 5434, 2496, 3995, 3615, 3635, 
+Group.waypoints19 = 4097, 4606, 4265, 5434, 2496, 3995, 3615, 3635, 3615, 3635, 4265, 5434, 
+Group.waypoints20 = 4097, 4606, 2496, 3995, 4265, 5434, 3615, 3635, 2496, 3995, 
+Group.waypoints21 = 4097, 4606, 3615, 3635, 2496, 3995, 4265, 5434, 3615, 3635, 
+Group.waypoints22 = 4097, 4606, 2496, 3995, 4265, 5434, 2496, 3995, 
+Group.waypoints23 = 4097, 4606, 4265, 5434, 3615, 3635, 
+Group.waypoints24 = 4097, 4606, 4265, 5434, 3615, 3635, 2496, 3995, 4265, 5434, 
+Group.waypoints25 = 4097, 4606, 2496, 3995, 3615, 3635, 3615, 3635, 4265, 5434, 
+Group.waypoints26 = 4097, 4606, 2496, 3995, 3615, 3635, 4265, 5434, 
+Group.waypoints27 = 4097, 4606, 2496, 3995, 4265, 5434, 
+Group.waypoints28 = 4097, 4606, 2496, 3995, 3615, 3635, 
+Group.waypoints29 = 4097, 4606, 2496, 3995, 3615, 3635, 
+Group.waypoints30 = 4097, 4606, 4265, 5434, 2496, 3995, 4265, 5434, 3615, 3635, 2496, 3995, 
+
+Group.firstCD= 107
+
+# Walking speeds
+#Group.speed = 0.12, 0.15
+
+# Message TTL of 300 minutes (5 hours)
+Group.msgTtl = 720
+
+Group.groupID = n
+
+#CC
+Group1.groupID = n
+Group1.nrofHosts= 1
+Group1.movementModel = ExternalMovement
+#Group1.clusterRange = 1000
+#Group1.clusterCenter = 2809.0, 4516.0
+#Group1.waitTime = 60,120
+
+#PoI
+Group2.groupID = n
+Group2.nrofHosts= 3
+Group2.movementModel = ExternalMovement
+Group2.nrofInterfaces = 2
+Group2.interface1 =btInterface
+Group2.interface2 = wifiInterface
+#Group2.interface2 = ClusterInterface
+
+#Volunteer
+Group3.groupID = n
+Group3.nrofHosts= 9
+Group3.movementModel = ExternalMovement
+Group3.nrofInterfaces = 2
+Group3.interface1 =btInterface
+Group3.interface2 = wifiInterface
+#Group3.waitTime = 120,360
+#Group3.speed = 1, 15
+Group3.initialEnergy = 800, 1000
+
+#Survivor
+Group4.groupID = n
+Group4.nrofHosts= 94
+Group4.movementModel = ExternalMovement
+#Group4.waitTime = 60,120
+#Group4.speed = 1, 5
+Group4.initialEnergy = 400, 500
+
+#Data mules
+Group5.groupID = n
+Group5.nrofHosts= 30
+Group5.movementModel = InCenterVehicleMovement
+Group5.nrofInterfaces = 2
+Group5.interface1 =btInterface
+Group5.interface2 = wifiInterface
+Group5.speed = 1, 5
+
+## Message creation parameters 
+# How many event generators
+Events.nrof = 1
+# Class of the first event generator
+Events1.class = [MessageEventGenerator]
+# (following settings are specific for the MessageEventGenerator class)
+# Creation interval in seconds (one new message every 25 to 35 seconds)
+Events1.interval = [60, 120] 
+
+# Message sizes (500kB - 1MB)
+Events1.size = 250k, 500k
+
+# range of message source/destination addresses
+Events1.hosts= 13, 94
+Events1.tohosts= 0, 1
+# Message ID prefix
+Events1.prefix = M
+#Events1.time = 0,3600
+
+## Movement model settings
+# seed for movement models' pseudo random number generator (default = 0)
+MovementModel.rngSeed = [1]
+# World's size for Movement Models without implicit size (width, height; meters)
+MovementModel.worldSize = 10000, 10000
+# How long time to move hosts in the world before real simulation
+MovementModel.warmup = 100
+
+## Map based movement -movement model specific settings
+MapBasedMovement.nrofMapFiles = 1
+
+MapBasedMovement.mapFile1 = data/bhaktapurRoads.osm.wkt
+#MapBasedMovement.mapFile1 = data/bhaktapurPolice.osm.wkt
+
+## Reports - all report names have to be valid report classes
+
+# how many reports to load
+Report.nrofReports = 3
+# length of the warm up period (simulated seconds)
+Report.warmup = 0
+# default directory of reports (can be overridden per Report with output setting)
+
+Report.reportDir = reports/
+
+# Report classes to load
+Report.report1 = MessageStatsReport
+Report.report2 = DeliveredMessagesReport
+Report.report3 = EnergyLevelReport
+#Report.report5 = EventLogReport
+#Report.report2 = AdjacencyGraphvizReport
+Report.granularity = 900
+
+## Optimization settings -- these affect the speed of the simulation
+## see World class for details.
+Optimization.connectionAlg = 2
+Optimization.cellSizeMult = 5
+Optimization.randomizeUpdateOrder = true
+
+## ## GUI settings
+
+# GUI underlay image settings
+GUI.UnderlayImage.fileName = data/bhaktapur.png
+# Image offset in pixels (x, y)
+GUI.UnderlayImage.offset = 50,80    
+#50,80
+# Scaling factor for the image
+GUI.UnderlayImage.scale = 3.2
+# Image rotation (radians)
+GUI.UnderlayImage.rotate = 0
+
+# how many events to show in the log panel (default = 30)
+GUI.EventLogPanel.nrofEvents = 100
+# Regular Expression log filter (see Pattern-class from the Java API for RE-matching details)
+#GUI.EventLogPanel.REfilter = .*p[1-9]<->p[1-9]$
