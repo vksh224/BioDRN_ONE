@@ -54,11 +54,14 @@ public class BioDRNRouter extends ActiveRouter
 		private double initTime;
 		private static NeighborListReader neighborListReader;
 		private static FailedNodeListReader failedNodeListReader;
-		private double samplingInterval = 600;
-		private double lastSamplingUpdate = 0;
+		private int samplingInterval = 600;
+		private int lastSamplingUpdate = 0;
 		private ArrayList<String >currentNodeNeighborList;
 		private ArrayList<String> failedNodeList;
 		private int lastCCID;
+		private int lastFailedNodesSamplingUpdate = 0;
+		private int failedNodesSamplingInterval = 300;
+		
 	/**
 	 * Constructor. Creates a new message router based on the settings in
 	 * the given Settings object.
@@ -101,6 +104,10 @@ public class BioDRNRouter extends ActiveRouter
 			String filePath = s.getSetting("failedNodeListFile");
 			failedNodeListReader = new FailedNodeListReader(filePath);
 		}
+		
+		if(s.contains("failedNodesSamplingInterval")) {
+			this.failedNodesSamplingInterval = s.getInt("failedNodesSamplingInterval");
+		}
 	}
 	
 	/**
@@ -124,6 +131,7 @@ public class BioDRNRouter extends ActiveRouter
 		this.samplingInterval = r.samplingInterval;
 		this.lastSamplingUpdate = r.lastSamplingUpdate;
 		this.lastCCID = r.lastCCID;
+		this.failedNodesSamplingInterval = r.failedNodesSamplingInterval;
 	}
 	
 	
@@ -258,6 +266,7 @@ public class BioDRNRouter extends ActiveRouter
 	public void update() {
 		super.update();
 		updateNeighborList();
+		failedNodeList();
 		reduceSendingAndScanningEnergy();
 		
 		if (isTransferring() || !canStartTransfer()) {
@@ -274,20 +283,29 @@ public class BioDRNRouter extends ActiveRouter
 	
 	//Update neighbor list based on time slot and failed nodes
 	protected void updateNeighborList() {
-		if (SimClock.getIntTime() == this.lastSamplingUpdate) {
+		if (SimClock.getIntTime() == this.lastSamplingUpdate + this.samplingInterval) {
 			currentNodeNeighborList = neighborListReader.getNeighborList(getHost().toString(), SimClock.getIntTime());
-			this.lastSamplingUpdate += this.samplingInterval;
+			//this.lastSamplingUpdate += this.samplingInterval;
 			getHost().setNeighborList(currentNodeNeighborList);
 			
-			failedNodeList = failedNodeListReader.getFailedNodeList(SimClock.getIntTime());
 			
-			if(currentNodeNeighborList != null && getHost().toString().matches("n10")){
-				System.out.println("Current energy; "+ getHost().getComBus().getDouble(ENERGY_VALUE_ID, -1));
-				System.out.println("At time: " + SimClock.getIntTime() +" Neighorlist: ");
-				System.out.println("Node " + getHost().toString() +" : " + currentNodeNeighborList.toString());
-				System.out.println("Failed node list: " + failedNodeList);
-			}
+//			if(currentNodeNeighborList != null && getHost().toString().matches("n30")){
+//				System.out.println("Current energy; "+ getHost().getComBus().getDouble(ENERGY_VALUE_ID, -1));
+//				System.out.println("At time: " + SimClock.getIntTime() +" Neighorlist: ");
+//				System.out.println("Node " + getHost().toString() +" : " + currentNodeNeighborList.toString());
+//				//System.out.println("Failed node list: " + failedNodeList);
+//			}
 		}	
+	}
+	
+	protected void failedNodeList() {
+		if (SimClock.getIntTime() == this.lastFailedNodesSamplingUpdate + this.failedNodesSamplingInterval) {
+			this.lastFailedNodesSamplingUpdate += this.failedNodesSamplingInterval;
+			failedNodeList = failedNodeListReader.getFailedNodeList(SimClock.getIntTime());
+//			if(failedNodeList != null && getHost().toString().matches("n30")){
+//				System.out.println("Failed node list: " + failedNodeList);
+//			}
+		}
 	}
 		
 	@Override
