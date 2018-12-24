@@ -9,7 +9,7 @@ Scenario.simulateConnections = true
 Scenario.updateInterval = 0.1
 # 43200s == 12h
 #Scenario.endTime = [1800; 3600; 5400; 7200; 9000; 10800; 12600; 14400; 16200; 18000; 19800; 21600]
-Scenario.endTime =  [1800; 3600; 7200; 10800; 14400; 18000; 21600]
+Scenario.endTime =  [1200; 1800]
 
 ## Interface-specific settings:
 # type : which interface class the interface belongs to
@@ -57,7 +57,7 @@ Scenario.nrofHostGroups = 5
 # Common settings for all groups
 Group.movementModel = ShortestPathMapBasedMovement
 #Group.router = [BioDRNRouter; BioDRNSnWRouter; BioDRNProphetRouter]
-Group.router = [BioDRNRouter]
+Group.router = [BioDRNRouter; EpidemicRouter]
 
 SprayAndWaitRouter.nrofCopies = [100]
 SprayAndWaitRouter.binaryMode = [true]
@@ -73,9 +73,6 @@ ExternalMovement.file = NodePosition/0_0/ext_position_137.txt
 
 Group.bufferSize = 500M
 Group.waitTime = 0, 120
-# All nodes have the bluetooth interface
-Group.nrofInterfaces = 1
-Group.interface1 = btInterface
 
 Group.initialEnergy = 10000, 10000
 Group.scanEnergy= 3
@@ -134,14 +131,16 @@ Group1.movementModel = ExternalMovement
 #Group1.clusterRange = 1000
 #Group1.clusterCenter = 2809.0, 4516.0
 #Group1.waitTime = 60,120
+Group1.nrofInterfaces = 1
+Group1.interface1 = wifiInterface
 
 #PoI
 Group2.groupID = n
 Group2.nrofHosts= 3
 Group2.movementModel = ExternalMovement
 Group2.nrofInterfaces = 2
-Group2.interface1 =btInterface
-Group2.interface2 = wifiInterface
+Group2.interface1 = wifiInterface
+Group2.interface2 = btInterface
 #Group2.interface2 = ClusterInterface
 Group2.initialEnergy = 1800, 2000
 
@@ -149,9 +148,8 @@ Group2.initialEnergy = 1800, 2000
 Group3.groupID = n
 Group3.nrofHosts= 9
 Group3.movementModel = ExternalMovement
-Group3.nrofInterfaces = 2
+Group3.nrofInterfaces = 1
 Group3.interface1 =btInterface
-Group3.interface2 = wifiInterface
 #Group3.waitTime = 120,360
 #Group3.speed = 1, 15
 Group3.initialEnergy = 1800, 2000
@@ -163,15 +161,16 @@ Group4.movementModel = ExternalMovement
 #Group4.waitTime = 60,120
 #Group4.speed = 1, 5
 Group4.initialEnergy = 800, 1000
+Group4.nrofInterfaces = 1
+Group4.interface1 = btInterface
 
 #Data mules
 Group5.groupID = n
 Group5.nrofHosts= 30
 Group5.movementModel = InCenterVehicleMovement
-Group5.nrofInterfaces = 2
-Group5.interface1 =btInterface
-Group5.interface2 = wifiInterface
-Group5.speed = 1, 5
+Group5.nrofInterfaces = 1
+Group5.interface1 = wifiInterface
+Group5.speed = 5, 10
 Group5.initialEnergy = 1800, 2000
 
 
@@ -182,7 +181,7 @@ Events.nrof = 1
 Events1.class = [MessageEventGenerator]
 # (following settings are specific for the MessageEventGenerator class)
 # Creation interval in seconds (one new message every 25 to 35 seconds)
-Events1.interval = [60, 120] 
+Events1.interval = [25, 35] 
 
 # Message sizes (500kB - 1MB)
 Events1.size = 250k, 500k

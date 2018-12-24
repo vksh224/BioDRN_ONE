@@ -59,6 +59,7 @@ public class BioDRNRouter extends ActiveRouter
 		private ArrayList<String >currentNodeNeighborList;
 		private ArrayList<String> failedNodeList;
 		private int lastCCID;
+		private int firstCD;
 		private int lastFailedNodesSamplingUpdate = 0;
 		private int failedNodesSamplingInterval = 300;
 		
@@ -80,6 +81,7 @@ public class BioDRNRouter extends ActiveRouter
 		this.transmitEnergy = s.getDouble(TRANSMIT_ENERGY_S);
 		this.scanInterval  = s.getDouble(SimScenario.SCAN_INTERVAL_S);
 		this.lastCCID = s.getInt("lastCCID");
+		this.firstCD = s.getInt("firstCD");
 		
 		if (s.contains(WARMUP_S)) {
 			this.warmupTime = s.getInt(WARMUP_S);
@@ -131,6 +133,7 @@ public class BioDRNRouter extends ActiveRouter
 		this.samplingInterval = r.samplingInterval;
 		this.lastSamplingUpdate = r.lastSamplingUpdate;
 		this.lastCCID = r.lastCCID;
+		this.firstCD = r.firstCD;
 		this.failedNodesSamplingInterval = r.failedNodesSamplingInterval;
 	}
 	
@@ -235,7 +238,16 @@ public class BioDRNRouter extends ActiveRouter
 		String sOtherHost;
 		sOtherHost = otherHost.toString(); 
 		
-		if(host.getNeighborList()!= null && host.getNeighborList().contains(sOtherHost)){
+		int hostId = Integer.parseInt(host.toString().substring(1));
+		int oHostId =Integer.parseInt(sOtherHost.substring(1));
+		
+		if(hostId >= this.firstCD && oHostId >= this.firstCD){
+//			if (hostId == this.firstCD)
+//				System.out.println("host " + hostId + " - " + oHostId);
+			canMsgBeSent = true;
+		}
+		
+		else if(host.getNeighborList()!= null && host.getNeighborList().contains(sOtherHost)){
 				//|| (otherHost.getNeighborList()!= null && otherHost.getNeighborList().contains(host.toString()))){
 			canMsgBeSent = true;
 		}
@@ -283,28 +295,30 @@ public class BioDRNRouter extends ActiveRouter
 	
 	//Update neighbor list based on time slot and failed nodes
 	protected void updateNeighborList() {
-		if (SimClock.getIntTime() == this.lastSamplingUpdate + this.samplingInterval) {
+		if (SimClock.getIntTime() == this.lastSamplingUpdate ) {
 			currentNodeNeighborList = neighborListReader.getNeighborList(getHost().toString(), SimClock.getIntTime());
-			//this.lastSamplingUpdate += this.samplingInterval;
-			getHost().setNeighborList(currentNodeNeighborList);
+			this.lastSamplingUpdate += this.samplingInterval;
 			
+			if (currentNodeNeighborList!= null && currentNodeNeighborList.size() > 0) {
+				getHost().setNeighborList(currentNodeNeighborList);
+			}
 			
-//			if(currentNodeNeighborList != null && getHost().toString().matches("n30")){
-//				System.out.println("Current energy; "+ getHost().getComBus().getDouble(ENERGY_VALUE_ID, -1));
-//				System.out.println("At time: " + SimClock.getIntTime() +" Neighorlist: ");
-//				System.out.println("Node " + getHost().toString() +" : " + currentNodeNeighborList.toString());
-//				//System.out.println("Failed node list: " + failedNodeList);
-//			}
+			if(currentNodeNeighborList != null && getHost().toString().matches("n30")){
+				System.out.println("Current energy; "+ getHost().getComBus().getDouble(ENERGY_VALUE_ID, -1));
+				System.out.println("At time: " + SimClock.getIntTime() +" Neighorlist: ");
+				System.out.println("Node " + getHost().toString() +" : " + currentNodeNeighborList.toString());
+				//System.out.println("Failed node list: " + failedNodeList);
+			}
 		}	
 	}
 	
 	protected void failedNodeList() {
-		if (SimClock.getIntTime() == this.lastFailedNodesSamplingUpdate + this.failedNodesSamplingInterval) {
+		if (SimClock.getIntTime() == this.lastFailedNodesSamplingUpdate) {
 			this.lastFailedNodesSamplingUpdate += this.failedNodesSamplingInterval;
 			failedNodeList = failedNodeListReader.getFailedNodeList(SimClock.getIntTime());
-//			if(failedNodeList != null && getHost().toString().matches("n30")){
-//				System.out.println("Failed node list: " + failedNodeList);
-//			}
+			if(failedNodeList != null && getHost().toString().matches("n30")){
+				System.out.println("Failed node list: " + failedNodeList);
+			}
 		}
 	}
 		
