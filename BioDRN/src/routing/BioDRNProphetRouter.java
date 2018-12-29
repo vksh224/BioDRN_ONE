@@ -127,7 +127,7 @@ public class BioDRNProphetRouter extends ActiveRouter {
 
 		initPreds();
 		
-this.initEnergy = s.getCsvDoubles(INIT_ENERGY_S);
+		this.initEnergy = s.getCsvDoubles(INIT_ENERGY_S);
 		
 		if (this.initEnergy.length != 1 && this.initEnergy.length != 2) {
 			throw new SettingsError(INIT_ENERGY_S + " setting must have " + 
