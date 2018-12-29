@@ -65,46 +65,49 @@ public class BioDRNProphetRouter extends ActiveRouter {
 	private double lastAgeUpdate;
 	
 	//Newly added for Bio-DRN
-			/** Energy consumption **/
-			public static final String INIT_ENERGY_S = "initialEnergy";
-			/** Energy usage per scanning -setting id ({@value}). */
-			public static final String SCAN_ENERGY_S = "scanEnergy";
-			/** Energy usage per second when sending -setting id ({@value}). */
-			public static final String TRANSMIT_ENERGY_S = "transmitEnergy";
-			/** Energy update warmup period -setting id ({@value}). Defines the 
-			 * simulation time after which the energy level starts to decrease due to 
-			 * scanning, transmissions, etc. Default value = 0. If value of "-1" is 
-			 * defined, uses the value from the report warmup setting 
-			 * {@link report.Report#WARMUP_S} from the namespace 
-			 * {@value report.Report#REPORT_NS}. */
-			public static final String WARMUP_S = "energyWarmup";
+	/** Energy consumption **/
+	public static final String INIT_ENERGY_S = "initialEnergy";
+	/** Energy usage per scanning -setting id ({@value}). */
+	public static final String SCAN_ENERGY_S = "scanEnergy";
+	/** Energy usage per second when sending -setting id ({@value}). */
+	public static final String TRANSMIT_ENERGY_S = "transmitEnergy";
+	/** Energy update warmup period -setting id ({@value}). Defines the 
+	 * simulation time after which the energy level starts to decrease due to 
+	 * scanning, transmissions, etc. Default value = 0. If value of "-1" is 
+	 * defined, uses the value from the report warmup setting 
+	 * {@link report.Report#WARMUP_S} from the namespace 
+	 * {@value report.Report#REPORT_NS}. */
+	public static final String WARMUP_S = "energyWarmup";
 
-			/** {@link ModuleCommunicationBus} identifier for the "current amount of 
-			 * energy left" variable. Value type: double */
-			public static final String ENERGY_VALUE_ID = "Energy.value";
-			public static final String IS_ENERGY_CONSTRAINED = "isEnergyConstrained";
-			
-			private final double[] initEnergy;
-			private double warmupTime;
-			private double currentEnergy;
-			/** energy usage per scan */
-			private double scanEnergy;
-			private double transmitEnergy;
-			private double lastScanUpdate;
-			private double lastUpdate;
-			private double scanInterval;	
-			private int isEnergyConstrained = 2;
-			private ModuleCommunicationBus comBus;
-			private static Random rng = null;
-			
-			private double initTime;
-			private static NeighborListReader neighborListReader;
-			private static FailedNodeListReader failedNodeListReader;
-			private double samplingInterval = 600;
-			private double lastSamplingUpdate = 0;
-			private ArrayList<String >currentNodeNeighborList;
-			private ArrayList<String> failedNodeList;
-			private int lastCCID;
+	/** {@link ModuleCommunicationBus} identifier for the "current amount of 
+	 * energy left" variable. Value type: double */
+	public static final String ENERGY_VALUE_ID = "Energy.value";
+	public static final String IS_ENERGY_CONSTRAINED = "isEnergyConstrained";
+	
+	private final double[] initEnergy;
+	private double warmupTime;
+	private double currentEnergy;
+	/** energy usage per scan */
+	private double scanEnergy;
+	private double transmitEnergy;
+	private double lastScanUpdate;
+	private double lastUpdate;
+	private double scanInterval;	
+	private int isEnergyConstrained = 2;
+	private ModuleCommunicationBus comBus;
+	private static Random rng = null;
+	
+	private double initTime;
+	private static NeighborListReader neighborListReader;
+	private static FailedNodeListReader failedNodeListReader;
+	private double samplingInterval = 600;
+	private double lastSamplingUpdate = 0;
+	private ArrayList<String >currentNodeNeighborList;
+	private ArrayList<String> failedNodeList;
+	private int lastCCID;
+	private int firstCD;
+	private int lastFailedNodesSamplingUpdate = 0;
+	private int failedNodesSamplingInterval = 300;
 	
 	/**
 	 * Constructor. Creates a new message router based on the settings in
@@ -159,6 +162,10 @@ this.initEnergy = s.getCsvDoubles(INIT_ENERGY_S);
 			String filePath = s.getSetting("failedNodeListFile");
 			failedNodeListReader = new FailedNodeListReader(filePath);
 		}
+		
+		if(s.contains("failedNodesSamplingInterval")) {
+			this.failedNodesSamplingInterval = s.getInt("failedNodesSamplingInterval");
+		}
 	}
 
 	/**
@@ -185,6 +192,8 @@ this.initEnergy = s.getCsvDoubles(INIT_ENERGY_S);
 		this.samplingInterval = r.samplingInterval;
 		this.lastSamplingUpdate = r.lastSamplingUpdate;
 		this.lastCCID = r.lastCCID;
+		this.firstCD = r.firstCD;
+		this.failedNodesSamplingInterval = r.failedNodesSamplingInterval;
 	}
 
 	
@@ -385,6 +394,7 @@ this.initEnergy = s.getCsvDoubles(INIT_ENERGY_S);
 	public void update() {
 		super.update();
 		updateNeighborList();
+		failedNodeList();
 		reduceSendingAndScanningEnergy();
 		if (!canStartTransfer() ||isTransferring()) {
 			return; // nothing to transfer or is currently transferring 
@@ -399,21 +409,36 @@ this.initEnergy = s.getCsvDoubles(INIT_ENERGY_S);
 	}
 	
 	//Update neighbor list based on time slot and failed nodes
-	protected void updateNeighborList() {
-		if (SimClock.getIntTime() == this.lastSamplingUpdate) {
-			currentNodeNeighborList = neighborListReader.getNeighborList(getHost().toString(), SimClock.getIntTime());
-			this.lastSamplingUpdate += this.samplingInterval;
-			getHost().setNeighborList(currentNodeNeighborList);
-			
+		protected void updateNeighborList() {
+			if (SimClock.getIntTime() >= this.lastSamplingUpdate) {
+				currentNodeNeighborList = neighborListReader.getNeighborList(getHost().toString(), SimClock.getIntTime());
+				this.lastSamplingUpdate += this.samplingInterval;
+				getHost().setNeighborList(currentNodeNeighborList);
+				
+				if (currentNodeNeighborList!= null && currentNodeNeighborList.size() > 0) {
+					getHost().setNeighborList(currentNodeNeighborList);
+				}
+				
+//				failedNodeList = failedNodeListReader.getFailedNodeList(SimClock.getIntTime());
+				
+				if(currentNodeNeighborList != null && getHost().toString().matches("n30")){
+					System.out.println("Current energy; "+ getHost().getComBus().getDouble(ENERGY_VALUE_ID, -1));
+					System.out.println("At time: " + SimClock.getIntTime() +" Neighorlist: ");
+					System.out.println("Node " + getHost().toString() +" : " + currentNodeNeighborList.toString());
+					//System.out.println("Failed node list: " + failedNodeList);
+				}
+			}	
+		}
+	
+	
+	protected void failedNodeList() {
+		if (SimClock.getIntTime() >= this.lastFailedNodesSamplingUpdate) {
+			this.lastFailedNodesSamplingUpdate += this.failedNodesSamplingInterval;
 			failedNodeList = failedNodeListReader.getFailedNodeList(SimClock.getIntTime());
-			
-			if(currentNodeNeighborList != null && getHost().toString().matches("n10")){
-				System.out.println("Current energy; "+ getHost().getComBus().getDouble(ENERGY_VALUE_ID, -1));
-				System.out.println("At time: " + SimClock.getIntTime() +" Neighorlist: ");
-				System.out.println("Node " + getHost().toString() +" : " + currentNodeNeighborList.toString());
+			if(failedNodeList != null && getHost().toString().matches("n30")){
 				System.out.println("Failed node list: " + failedNodeList);
 			}
-		}	
+		}
 	}
 	
 	protected boolean shouldMessageBeSent(Connection con) {
@@ -424,6 +449,15 @@ this.initEnergy = s.getCsvDoubles(INIT_ENERGY_S);
 		
 		String sOtherHost;
 		sOtherHost = otherHost.toString(); 
+		
+		int hostId = Integer.parseInt(host.toString().substring(1));
+		int oHostId =Integer.parseInt(sOtherHost.substring(1));
+		
+		if(hostId >= this.firstCD && oHostId >= this.firstCD){
+//			if (hostId == this.firstCD)
+//				System.out.println("host " + hostId + " - " + oHostId);
+			canMsgBeSent = true;
+		}
 		
 		if(host.getNeighborList()!= null && host.getNeighborList().contains(sOtherHost)){
 				//|| (otherHost.getNeighborList()!= null && otherHost.getNeighborList().contains(host.toString()))){
