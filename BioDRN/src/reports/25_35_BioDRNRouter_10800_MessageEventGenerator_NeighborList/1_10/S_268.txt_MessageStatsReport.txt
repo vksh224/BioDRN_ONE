@@ -1,0 +1,20 @@
+Message stats for scenario 25_35_BioDRNRouter_10800_MessageEventGenerator_NeighborList/1_10/S_268.txt
+sim_time: 10800.0000
+created: 305
+started: 257398
+relayed: 257041
+aborted: 323
+dropped: 254030
+removed: 0
+delivered: 187
+delivery_prob: 0.6131
+response_prob: 0.0000
+overhead_ratio: 1373.5508
+latency_avg: 857.8663
+latency_med: 531.8000
+hopcount_avg: 12.4385
+hopcount_med: 12
+buffertime_avg: 411.0644
+buffertime_med: 28.5000
+rtt_avg: NaN
+rtt_med: NaN

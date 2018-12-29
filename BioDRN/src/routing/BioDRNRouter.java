@@ -295,7 +295,7 @@ public class BioDRNRouter extends ActiveRouter
 	
 	//Update neighbor list based on time slot and failed nodes
 	protected void updateNeighborList() {
-		if (SimClock.getIntTime() == this.lastSamplingUpdate ) {
+		if (SimClock.getIntTime() >= this.lastSamplingUpdate ) {
 			currentNodeNeighborList = neighborListReader.getNeighborList(getHost().toString(), SimClock.getIntTime());
 			this.lastSamplingUpdate += this.samplingInterval;
 			
@@ -313,7 +313,7 @@ public class BioDRNRouter extends ActiveRouter
 	}
 	
 	protected void failedNodeList() {
-		if (SimClock.getIntTime() == this.lastFailedNodesSamplingUpdate) {
+		if (SimClock.getIntTime() >= this.lastFailedNodesSamplingUpdate) {
 			this.lastFailedNodesSamplingUpdate += this.failedNodesSamplingInterval;
 			failedNodeList = failedNodeListReader.getFailedNodeList(SimClock.getIntTime());
 			if(failedNodeList != null && getHost().toString().matches("n30")){
