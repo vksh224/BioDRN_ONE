@@ -9,7 +9,7 @@ Scenario.simulateConnections = true
 Scenario.updateInterval = 0.1
 # 43200s == 12h
 #Scenario.endTime = [1800; 3600; 5400; 7200; 9000; 10800; 12600; 14400; 16200; 18000; 19800; 21600]
-Scenario.endTime = [1800; 3600; 5400; 7200; 9000; 10800; 12600; 14400; 16200; 18000; 19800; 21600]
+Scenario.endTime = [3600; 21600; 7200; 10800; 14400; 18000]
 #[3600; 10800; 21600]
 
 ## Interface-specific settings:
@@ -69,7 +69,8 @@ Group.lastCCID = 1
 Group.failedNodesSamplingInterval = 1800
 Group.sendQueue = 2
 
-Group.neighborListFile = [NeighborList/1_2/O_239.txt; NeighborList/1_2/B_239.txt;NeighborList/1_2/B_ideal_239.txt;NeighborList/1_2/S_239.txt; NeighborList/1_2/R_239.txt; NeighborList/1_2/K2_239.txt; NeighborList/1_2/K4_239.txt] 
+Group.neighborListFile = [NeighborList/1_2/O_239.txt]
+#; NeighborList/1_2/B_239.txt;NeighborList/1_2/B_ideal_239.txt;NeighborList/1_2/S_239.txt; NeighborList/1_2/R_239.txt; NeighborList/1_2/K2_239.txt; NeighborList/1_2/K4_239.txt] 
 #NeighborList/1_10/O_268.txt]
 
 #;NeighborList/1_10/S_268.txt; NeighborList/1_10/R_268.txt; NeighborList/1_10/K2_268.txt; NeighborList/1_10/K4_268.txt] 
@@ -165,7 +166,7 @@ Group4.nrofHosts= 193
 Group4.movementModel = ExternalMovement
 #Group4.waitTime = 60,120
 #Group4.speed = 1, 5
-Group4.initialEnergy = 800, 1000
+Group4.initialEnergy = 1000, 1200
 Group4.nrofInterfaces = 1
 Group4.interface1 = btInterface
 
@@ -186,7 +187,7 @@ Events.nrof = 1
 Events1.class = [MessageEventGenerator]
 # (following settings are specific for the MessageEventGenerator class)
 # Creation interval in seconds (one new message every 25 to 35 seconds)
-Events1.interval = [25, 35] 
+Events1.interval = [25, 45] 
 
 # Message sizes (500kB - 1MB)
 Events1.size = 500k, 1M
@@ -196,7 +197,9 @@ Events1.hosts= 16, 193
 Events1.tohosts= 0, 1
 # Message ID prefix
 Events1.prefix = M
-Events1.time = [0, 900; 0, 2700; 0, 4500; 0, 6300; 0, 8100; 0, 9900; 0, 11700; 0, 13500; 0, 15300; 0, 17100; 0, 18900; 0, 20700]
+#Events1.time = [0, 1800; 0, 19800; 0, 5400; 0, 9000; 0, 12600; 0, 16200]
+
+Events1.time = [0, 2700;  0, 20700; 0, 6300; 0, 9900; 0, 13500; 0, 17100]
 
 ## Movement model settings
 # seed for movement models' pseudo random number generator (default = 0)

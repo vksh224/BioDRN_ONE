@@ -4,14 +4,13 @@
 
 ## Scenario settings
 #Scenario.name = %%Group.router%%_%%Scenario.endTime%%_%%Events1.class%%_%%MovementModel.rngSeed%%
-Scenario.name = 25_35_%%Group.router%%_%%Scenario.endTime%%_%%Events1.class%%_%%Group.neighborListFile%%
+Scenario.name = s_25_35_%%Group.router%%_%%Scenario.endTime%%_%%Events1.class%%_%%Group.neighborListFile%%
 Scenario.simulateConnections = true
 Scenario.updateInterval = 0.1
 # 43200s == 12h
 #Scenario.endTime = [1800; 3600; 5400; 7200; 9000; 10800; 12600; 14400; 16200; 18000; 19800; 21600]
 #Scenario.endTime = [1800; 3600; 5400; 7200; 9000; 10800; 12600; 14400; 16200; 18000; 19800; 21600]
-Scenario.endTime = [3600; 5400; 7200; 9000; 10800; 12600; 14400; 16200; 18000; 19800; 21600]
-#[3600; 10800; 21600]
+Scenario.endTime = [3600; 7200; 21600; 10800; 14400; 18000]
 
 ## Interface-specific settings:
 # type : which interface class the interface belongs to
@@ -68,9 +67,9 @@ ProphetRouter.secondsInTimeUnit = 60
 Group.samplingInterval = 1800
 Group.lastCCID = 1
 Group.failedNodesSamplingInterval = 1800
-Group.sendQueue = 2
+Group.sendQueue = 1
 
-Group.neighborListFile = [NeighborList/2_0/B_313_s.txt]
+Group.neighborListFile = [NeighborList/2_0/K8_313.txt]
 ; NeighborList/2_0/B_313.txt;NeighborList/2_0/B_ideal_313.txt;NeighborList/2_0/S_313.txt; NeighborList/2_0/R_313.txt; NeighborList/2_0/K2_313.txt; NeighborList/2_0/K4_313.txt] 
 #NeighborList/1_10/O_268.txt]
 
@@ -78,10 +77,10 @@ Group.neighborListFile = [NeighborList/2_0/B_313_s.txt]
 Group.failedNodeListFile = FailedNodeList/2_0/failed_nodelist_313.txt
 ExternalMovement.file = NodePosition/2_0/ext_position_313.txt
 
-Group.bufferSize = 1000M
+Group.bufferSize = 2000M
 Group.waitTime = 0, 120
 
-Group.initialEnergy = 10000, 10000
+Group.initialEnergy = 5000, 5000
 Group.scanEnergy= 3
 Group.transmitEnergy= 0.6
 Group.energyWarmup= 0
@@ -167,7 +166,7 @@ Group4.nrofHosts= 261
 Group4.movementModel = ExternalMovement
 #Group4.waitTime = 60,120
 #Group4.speed = 1, 5
-Group4.initialEnergy = 800, 1000
+Group4.initialEnergy = 1000, 1200
 Group4.nrofInterfaces = 1
 Group4.interface1 = btInterface
 
@@ -188,7 +187,7 @@ Events.nrof = 1
 Events1.class = [MessageEventGenerator]
 # (following settings are specific for the MessageEventGenerator class)
 # Creation interval in seconds (one new message every 25 to 35 seconds)
-Events1.interval = [25, 35] 
+Events1.interval = [30, 60] 
 
 # Message sizes (500kB - 1MB)
 Events1.size = 500k, 1M
@@ -198,8 +197,8 @@ Events1.hosts= 22, 261
 Events1.tohosts= 0, 1
 # Message ID prefix
 Events1.prefix = M
-Events1.time = [0, 1800; 0, 3600; 0, 5400; 0, 7200; 0, 9000; 0, 10800; 0, 12600; 0, 14400; 0, 16200; 0, 18000; 0, 19800]
-#Events1.time = [0, 900; 0, 2700; 0, 4500; 0, 6300; 0, 8100; 0, 9900; 0, 11700; 0, 13500; 0, 15300; 0, 17100; 0, 18900; 0, 20700]
+#Events1.time = [0, 1800; 0, 5400; 0, 19800; 0, 9000; 0, 12600; 0, 16200]
+Events1.time = [0, 2700; 0, 6300; 0, 20700; 0, 9900; 0, 13500; 0, 17100]
 
 ## Movement model settings
 # seed for movement models' pseudo random number generator (default = 0)
