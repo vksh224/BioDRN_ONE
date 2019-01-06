@@ -4,7 +4,7 @@
 
 ## Scenario settings
 #Scenario.name = %%Group.router%%_%%Scenario.endTime%%_%%Events1.class%%_%%MovementModel.rngSeed%%
-Scenario.name = 25_35_%%Group.router%%_%%Scenario.endTime%%_%%Events1.class%%_%%Group.neighborListFile%%
+Scenario.name = 30_60_%%Group.router%%_%%Scenario.endTime%%_%%Events1.class%%_%%Group.neighborListFile%%
 Scenario.simulateConnections = true
 Scenario.updateInterval = 0.1
 # 43200s == 12h
@@ -67,19 +67,17 @@ ProphetRouter.secondsInTimeUnit = 60
 Group.samplingInterval = 1800
 Group.lastCCID = 1
 Group.failedNodesSamplingInterval = 1800
-Group.sendQueue = 2
+Group.sendQueue = 1
 
 Group.neighborListFile = [NeighborList/1_10/K8_268.txt]
-#NeighborList/1_10/O_268.txt]
 
-#;NeighborList/1_10/S_268.txt; NeighborList/1_10/R_268.txt; NeighborList/1_10/K2_268.txt; NeighborList/1_10/K4_268.txt] 
 Group.failedNodeListFile = FailedNodeList/1_10/failed_nodelist_268.txt
 ExternalMovement.file = NodePosition/1_10/ext_position_268.txt
 
-Group.bufferSize = 1000M
+Group.bufferSize = 2000M
 Group.waitTime = 0, 120
 
-Group.initialEnergy = 10000, 10000
+Group.initialEnergy = 5000, 5000
 Group.scanEnergy= 3
 Group.transmitEnergy= 0.6
 Group.energyWarmup= 0
@@ -165,7 +163,7 @@ Group4.nrofHosts= 216
 Group4.movementModel = ExternalMovement
 #Group4.waitTime = 60,120
 #Group4.speed = 1, 5
-Group4.initialEnergy = 800, 1000
+Group4.initialEnergy = 800, 1200
 Group4.nrofInterfaces = 1
 Group4.interface1 = btInterface
 
@@ -186,7 +184,7 @@ Events.nrof = 1
 Events1.class = [MessageEventGenerator]
 # (following settings are specific for the MessageEventGenerator class)
 # Creation interval in seconds (one new message every 25 to 35 seconds)
-Events1.interval = [25, 45] 
+Events1.interval = [30, 60] 
 
 # Message sizes (500kB - 1MB)
 Events1.size = 500k, 1M

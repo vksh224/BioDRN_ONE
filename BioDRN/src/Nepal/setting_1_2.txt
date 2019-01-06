@@ -4,7 +4,7 @@
 
 ## Scenario settings
 #Scenario.name = %%Group.router%%_%%Scenario.endTime%%_%%Events1.class%%_%%MovementModel.rngSeed%%
-Scenario.name = 25_35_%%Group.router%%_%%Scenario.endTime%%_%%Events1.class%%_%%Group.neighborListFile%%
+Scenario.name = 30_60_%%Group.router%%_%%Scenario.endTime%%_%%Events1.class%%_%%Group.neighborListFile%%
 Scenario.simulateConnections = true
 Scenario.updateInterval = 0.1
 # 43200s == 12h
@@ -67,20 +67,18 @@ ProphetRouter.secondsInTimeUnit = 60
 Group.samplingInterval = 1800
 Group.lastCCID = 1
 Group.failedNodesSamplingInterval = 1800
-Group.sendQueue = 2
+Group.sendQueue = 1
 
-Group.neighborListFile = [NeighborList/1_2/O_239.txt]
-#; NeighborList/1_2/B_239.txt;NeighborList/1_2/B_ideal_239.txt;NeighborList/1_2/S_239.txt; NeighborList/1_2/R_239.txt; NeighborList/1_2/K2_239.txt; NeighborList/1_2/K4_239.txt] 
-#NeighborList/1_10/O_268.txt]
+Group.neighborListFile = [NeighborList/1_2/K4_246.txt]
+#; NeighborList/1_2/B_246.txt;NeighborList/1_2/B_ideal_246.txt;NeighborList/1_2/S_246.txt; NeighborList/1_2/R_246.txt; NeighborList/1_2/K2_246.txt; NeighborList/1_2/K8_246.txt] 
 
-#;NeighborList/1_10/S_268.txt; NeighborList/1_10/R_268.txt; NeighborList/1_10/K2_268.txt; NeighborList/1_10/K4_268.txt] 
-Group.failedNodeListFile = FailedNodeList/1_2/failed_nodelist_239.txt
-ExternalMovement.file = NodePosition/1_2/ext_position_239.txt
+Group.failedNodeListFile = FailedNodeList/1_2/failed_nodelist_246.txt
+ExternalMovement.file = NodePosition/1_2/ext_position_246.txt
 
-Group.bufferSize = 1000M
+Group.bufferSize = 2000M
 Group.waitTime = 0, 120
 
-Group.initialEnergy = 10000, 10000
+Group.initialEnergy = 5000, 5000
 Group.scanEnergy= 3
 Group.transmitEnergy= 0.6
 Group.energyWarmup= 0
@@ -89,38 +87,38 @@ Group.scanInterval= 60
 Group.isEnergyConstrained = 2
 
 Group.DMS=30
-Group.waypoints1 = 2527, 5866, 2333, 5788, 4428, 5262, 1496, 3602, 
-Group.waypoints2 = 2527, 5866, 1563, 3306, 3613, 5493, 2333, 5788, 
-Group.waypoints3 = 2527, 5866, 3613, 5493, 4428, 5262, 1563, 3306, 
-Group.waypoints4 = 2527, 5866, 1496, 3602, 
-Group.waypoints5 = 2527, 5866, 2333, 5788, 1496, 3602, 4428, 5262, 
-Group.waypoints6 = 2527, 5866, 3613, 5493, 1563, 3306, 
-Group.waypoints7 = 2527, 5866, 1496, 3602, 4428, 5262, 
-Group.waypoints8 = 2527, 5866, 2333, 5788, 1563, 3306, 
-Group.waypoints9 = 2527, 5866, 3613, 5493, 1496, 3602, 3613, 5493, 
-Group.waypoints10 = 2527, 5866, 4428, 5262, 1563, 3306, 2333, 5788, 
-Group.waypoints11 = 2527, 5866, 2333, 5788, 
-Group.waypoints12 = 2527, 5866, 1496, 3602, 
-Group.waypoints13 = 2527, 5866, 1563, 3306, 
-Group.waypoints14 = 2527, 5866, 3613, 5493, 
-Group.waypoints15 = 2527, 5866, 4428, 5262, 4428, 5262, 3613, 5493, 
-Group.waypoints16 = 2527, 5866, 1563, 3306, 
-Group.waypoints17 = 2527, 5866, 1496, 3602, 
-Group.waypoints18 = 2527, 5866, 2333, 5788, 2333, 5788, 
-Group.waypoints19 = 2527, 5866, 1496, 3602, 1563, 3306, 3613, 5493, 
-Group.waypoints20 = 2527, 5866, 4428, 5262, 
-Group.waypoints21 = 2527, 5866, 4428, 5262, 2333, 5788, 
-Group.waypoints22 = 2527, 5866, 1563, 3306, 3613, 5493, 1496, 3602, 
-Group.waypoints23 = 2527, 5866, 1496, 3602, 
-Group.waypoints24 = 2527, 5866, 1563, 3306, 4428, 5262, 
-Group.waypoints25 = 2527, 5866, 3613, 5493, 2333, 5788, 
-Group.waypoints26 = 2527, 5866, 1563, 3306, 2333, 5788, 1496, 3602, 
-Group.waypoints27 = 2527, 5866, 4428, 5262, 3613, 5493, 
-Group.waypoints28 = 2527, 5866, 1496, 3602, 
-Group.waypoints29 = 2527, 5866, 2333, 5788, 3613, 5493, 4428, 5262, 
-Group.waypoints30 = 2527, 5866, 1563, 3306, 
+Group.waypoints1 = 3074, 5753, 2110, 3693, 
+Group.waypoints2 = 3074, 5753, 4397, 3858, 1500, 3929, 
+Group.waypoints3 = 3074, 5753, 2982, 5835, 1209, 5013, 
+Group.waypoints4 = 3074, 5753, 2110, 3693, 
+Group.waypoints5 = 3074, 5753, 1500, 3929, 1209, 5013, 
+Group.waypoints6 = 3074, 5753, 2982, 5835, 4397, 3858, 
+Group.waypoints7 = 3074, 5753, 2110, 3693, 4397, 3858, 
+Group.waypoints8 = 3074, 5753, 1500, 3929, 2982, 5835, 1209, 5013, 
+Group.waypoints9 = 3074, 5753, 2982, 5835, 2110, 3693, 
+Group.waypoints10 = 3074, 5753, 1209, 5013, 
+Group.waypoints11 = 3074, 5753, 4397, 3858, 1500, 3929, 2982, 5835, 
+Group.waypoints12 = 3074, 5753, 1209, 5013, 1500, 3929, 
+Group.waypoints13 = 3074, 5753, 2110, 3693, 4397, 3858, 4397, 3858, 
+Group.waypoints14 = 3074, 5753, 1209, 5013, 2110, 3693, 
+Group.waypoints15 = 3074, 5753, 2982, 5835, 1500, 3929, 
+Group.waypoints16 = 3074, 5753, 1209, 5013, 1500, 3929, 
+Group.waypoints17 = 3074, 5753, 2110, 3693, 
+Group.waypoints18 = 3074, 5753, 2982, 5835, 
+Group.waypoints19 = 3074, 5753, 4397, 3858, 2110, 3693, 4397, 3858, 
+Group.waypoints20 = 3074, 5753, 1209, 5013, 1500, 3929, 2982, 5835, 
+Group.waypoints21 = 3074, 5753, 1209, 5013, 1500, 3929, 
+Group.waypoints22 = 3074, 5753, 4397, 3858, 2982, 5835, 
+Group.waypoints23 = 3074, 5753, 2110, 3693, 
+Group.waypoints24 = 3074, 5753, 2982, 5835, 1209, 5013, 
+Group.waypoints25 = 3074, 5753, 2110, 3693, 1500, 3929, 4397, 3858, 
+Group.waypoints26 = 3074, 5753, 1209, 5013, 
+Group.waypoints27 = 3074, 5753, 2110, 3693, 2982, 5835, 1500, 3929, 
+Group.waypoints28 = 3074, 5753, 4397, 3858, 4397, 3858, 2110, 3693, 
+Group.waypoints29 = 3074, 5753, 2982, 5835, 
+Group.waypoints30 = 3074, 5753, 1209, 5013, 
 
-Group.firstCD= 209
+Group.firstCD= 216
 
 # Walking speeds
 #Group.speed = 0.12, 0.15
@@ -152,7 +150,7 @@ Group2.interface2 = btInterface
 
 #Volunteer
 Group3.groupID = n
-Group3.nrofHosts= 10
+Group3.nrofHosts= 7
 Group3.movementModel = ExternalMovement
 Group3.nrofInterfaces = 1
 Group3.interface1 =btInterface
@@ -162,11 +160,11 @@ Group3.interface1 =btInterface
 
 #Survivor
 Group4.groupID = n
-Group4.nrofHosts= 193
+Group4.nrofHosts= 203
 Group4.movementModel = ExternalMovement
 #Group4.waitTime = 60,120
 #Group4.speed = 1, 5
-Group4.initialEnergy = 1000, 1200
+Group4.initialEnergy = 800, 1200
 Group4.nrofInterfaces = 1
 Group4.interface1 = btInterface
 
@@ -177,7 +175,7 @@ Group5.movementModel = InCenterVehicleMovement
 Group5.nrofInterfaces = 1
 Group5.interface1 = wifiInterface
 Group5.speed = 5, 10
-#Group5.initialEnergy = 1500, 2000
+#Group5.initialEnergy = 1000, 1200
 
 
 ## Message creation parameters 
@@ -187,19 +185,19 @@ Events.nrof = 1
 Events1.class = [MessageEventGenerator]
 # (following settings are specific for the MessageEventGenerator class)
 # Creation interval in seconds (one new message every 25 to 35 seconds)
-Events1.interval = [25, 45] 
+Events1.interval = [30, 60] 
 
 # Message sizes (500kB - 1MB)
 Events1.size = 500k, 1M
 
 # range of message source/destination addresses
-Events1.hosts= 16, 193
+Events1.hosts= 13, 203
 Events1.tohosts= 0, 1
 # Message ID prefix
 Events1.prefix = M
 #Events1.time = [0, 1800; 0, 19800; 0, 5400; 0, 9000; 0, 12600; 0, 16200]
 
-Events1.time = [0, 2700;  0, 20700; 0, 6300; 0, 9900; 0, 13500; 0, 17100]
+Events1.time = [0, 2700; 0, 20700; 0, 6300; 0, 9900; 0, 13500; 0, 17100]
 
 ## Movement model settings
 # seed for movement models' pseudo random number generator (default = 0)

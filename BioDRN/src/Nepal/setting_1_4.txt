@@ -4,7 +4,7 @@
 
 ## Scenario settings
 #Scenario.name = %%Group.router%%_%%Scenario.endTime%%_%%Events1.class%%_%%MovementModel.rngSeed%%
-Scenario.name = 25_35_%%Group.router%%_%%Scenario.endTime%%_%%Events1.class%%_%%Group.neighborListFile%%
+Scenario.name = 30_60_%%Group.router%%_%%Scenario.endTime%%_%%Events1.class%%_%%Group.neighborListFile%%
 Scenario.simulateConnections = true
 Scenario.updateInterval = 0.1
 # 43200s == 12h
@@ -69,7 +69,7 @@ Group.lastCCID = 1
 Group.failedNodesSamplingInterval = 1800
 Group.sendQueue = 1
 
-Group.neighborListFile = [NeighborList/1_4/K4_249.txt]
+Group.neighborListFile = [NeighborList/1_4/K8_249.txt]
 #; NeighborList/1_4/B_249.txt;NeighborList/1_4/B_ideal_249.txt;NeighborList/1_4/S_249.txt; NeighborList/1_4/R_249.txt; NeighborList/1_4/K2_249.txt; NeighborList/1_4/K4_249.txt] 
 #NeighborList/1_10/O_268.txt]
 
@@ -166,7 +166,7 @@ Group4.nrofHosts= 202
 Group4.movementModel = ExternalMovement
 #Group4.waitTime = 60,120
 #Group4.speed = 1, 5
-Group4.initialEnergy = 1000, 1200
+Group4.initialEnergy = 800, 1200
 Group4.nrofInterfaces = 1
 Group4.interface1 = btInterface
 
