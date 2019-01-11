@@ -69,8 +69,7 @@ Group.lastCCID = 1
 Group.failedNodesSamplingInterval = 1800
 Group.sendQueue = 1
 
-Group.neighborListFile = [NeighborList/2_0/K4_313.txt]
-#; NeighborList/2_0/B_313.txt;NeighborList/2_0/B_ideal_313.txt;NeighborList/2_0/S_313.txt; NeighborList/2_0/R_313.txt; NeighborList/2_0/K2_313.txt; NeighborList/2_0/K4_313.txt] 
+Group.neighborListFile = [NeighborList/2_0/B_313.txt;NeighborList/2_0/O_313.txt;NeighborList/2_0/S_313.txt; NeighborList/2_0/R_313.txt; NeighborList/2_0/K3_313.txt; NeighborList/2_0/K5_313.txt] 
 
 Group.failedNodeListFile = FailedNodeList/2_0/failed_nodelist_313.txt
 ExternalMovement.file = NodePosition/2_0/ext_position_313.txt

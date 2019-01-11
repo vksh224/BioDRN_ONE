@@ -4,12 +4,13 @@
 
 ## Scenario settings
 #Scenario.name = %%Group.router%%_%%Scenario.endTime%%_%%Events1.class%%_%%MovementModel.rngSeed%%
-Scenario.name = %%Group.router%%_%%Scenario.endTime%%_%%Group.neighborListFile%%
+Scenario.name = 30_60_%%Group.router%%_%%Scenario.endTime%%_%%Events1.class%%_%%Group.neighborListFile%%
 Scenario.simulateConnections = true
 Scenario.updateInterval = 0.1
 # 43200s == 12h
 #Scenario.endTime = [1800; 3600; 5400; 7200; 9000; 10800; 12600; 14400; 16200; 18000; 19800; 21600]
-Scenario.endTime =  [3600; 5400; 7200; 9000; 10800]
+Scenario.endTime = [3600; 21600; 7200; 10800; 14400; 18000]
+#[3600; 10800; 21600]
 
 ## Interface-specific settings:
 # type : which interface class the interface belongs to
@@ -66,15 +67,17 @@ ProphetRouter.secondsInTimeUnit = 60
 Group.samplingInterval = 1800
 Group.lastCCID = 1
 Group.failedNodesSamplingInterval = 1800
+Group.sendQueue = 1
 
-Group.neighborListFile = [NeighborList/1_5/O_250.txt; NeighborList/1_5/B_250.txt;NeighborList/1_5/B_ideal_250.txt;NeighborList/1_5/S_250.txt; NeighborList/1_5/R_250.txt; NeighborList/1_5/K2_250.txt; NeighborList/1_5/K4_250.txt] 
-Group.failedNodeListFile = FailedNodeList/1_5/failed_nodelist_250.txt
-ExternalMovement.file = NodePosition/1_5/ext_position_250.txt
+Group.neighborListFile = [NeighborList/1_5/O_259.txt; NeighborList/1_5/B_259.txt;NeighborList/1_5/B_ideal_259.txt;NeighborList/1_5/S_259.txt; NeighborList/1_5/R_259.txt; NeighborList/1_5/K2_259.txt; NeighborList/1_5/K4_259.txt] 
 
-Group.bufferSize = 500M
+Group.failedNodeListFile = FailedNodeList/1_5/failed_nodelist_259.txt
+ExternalMovement.file = NodePosition/1_5/ext_position_259.txt
+
+Group.bufferSize = 2000M
 Group.waitTime = 0, 120
 
-Group.initialEnergy = 10000, 10000
+Group.initialEnergy = 5000, 5000
 Group.scanEnergy= 3
 Group.transmitEnergy= 0.6
 Group.energyWarmup= 0
@@ -83,44 +86,44 @@ Group.scanInterval= 60
 Group.isEnergyConstrained = 2
 
 Group.DMS=30
-Group.waypoints1 = 2847, 5422, 3274, 3384, 2588, 3138, 
-Group.waypoints2 = 2847, 5422, 1251, 3744, 1318, 4728, 2089, 3969, 
-Group.waypoints3 = 2847, 5422, 3274, 3384, 1318, 4728, 1251, 3744, 2588, 3138, 2089, 3969, 
-Group.waypoints4 = 2847, 5422, 1318, 4728, 3274, 3384, 2588, 3138, 
-Group.waypoints5 = 2847, 5422, 2089, 3969, 1251, 3744, 1251, 3744, 1318, 4728, 2089, 3969, 
-Group.waypoints6 = 2847, 5422, 3274, 3384, 2588, 3138, 2089, 3969, 
-Group.waypoints7 = 2847, 5422, 3274, 3384, 1318, 4728, 2588, 3138, 1251, 3744, 
-Group.waypoints8 = 2847, 5422, 2089, 3969, 2588, 3138, 
-Group.waypoints9 = 2847, 5422, 1251, 3744, 1318, 4728, 3274, 3384, 1318, 4728, 
-Group.waypoints10 = 2847, 5422, 3274, 3384, 2588, 3138, 1251, 3744, 2089, 3969, 
-Group.waypoints11 = 2847, 5422, 3274, 3384, 1251, 3744, 2588, 3138, 1318, 4728, 
-Group.waypoints12 = 2847, 5422, 2089, 3969, 2089, 3969, 1251, 3744, 
-Group.waypoints13 = 2847, 5422, 1318, 4728, 2588, 3138, 3274, 3384, 
-Group.waypoints14 = 2847, 5422, 3274, 3384, 1318, 4728, 
-Group.waypoints15 = 2847, 5422, 2588, 3138, 1251, 3744, 
-Group.waypoints16 = 2847, 5422, 2089, 3969, 1318, 4728, 2089, 3969, 
-Group.waypoints17 = 2847, 5422, 2588, 3138, 3274, 3384, 1251, 3744, 
-Group.waypoints18 = 2847, 5422, 3274, 3384, 2089, 3969, 2588, 3138, 
-Group.waypoints19 = 2847, 5422, 1318, 4728, 1251, 3744, 2089, 3969, 3274, 3384, 
-Group.waypoints20 = 2847, 5422, 1318, 4728, 1251, 3744, 2588, 3138, 1251, 3744, 2089, 3969, 
-Group.waypoints21 = 2847, 5422, 1318, 4728, 3274, 3384, 
-Group.waypoints22 = 2847, 5422, 2588, 3138, 3274, 3384, 1251, 3744, 1318, 4728, 2089, 3969, 
-Group.waypoints23 = 2847, 5422, 2588, 3138, 3274, 3384, 
-Group.waypoints24 = 2847, 5422, 2089, 3969, 1318, 4728, 1251, 3744, 
-Group.waypoints25 = 2847, 5422, 2588, 3138, 3274, 3384, 2089, 3969, 1251, 3744, 1318, 4728, 
-Group.waypoints26 = 2847, 5422, 2588, 3138, 1318, 4728, 3274, 3384, 1251, 3744, 2089, 3969, 
-Group.waypoints27 = 2847, 5422, 2588, 3138, 1318, 4728, 1251, 3744, 
-Group.waypoints28 = 2847, 5422, 2089, 3969, 2588, 3138, 
-Group.waypoints29 = 2847, 5422, 3274, 3384, 2089, 3969, 
-Group.waypoints30 = 2847, 5422, 2588, 3138, 3274, 3384, 
+Group.waypoints1 = 3809, 4862, 1872, 5837, 
+Group.waypoints2 = 3809, 4862, 4492, 3250, 
+Group.waypoints3 = 3809, 4862, 4895, 5519, 2559, 5258, 1507, 3076, 
+Group.waypoints4 = 3809, 4862, 4492, 3250, 
+Group.waypoints5 = 3809, 4862, 1507, 3076, 
+Group.waypoints6 = 3809, 4862, 4895, 5519, 2559, 5258, 
+Group.waypoints7 = 3809, 4862, 1872, 5837, 4492, 3250, 4895, 5519, 
+Group.waypoints8 = 3809, 4862, 1872, 5837, 
+Group.waypoints9 = 3809, 4862, 2559, 5258, 1507, 3076, 1507, 3076, 
+Group.waypoints10 = 3809, 4862, 4492, 3250, 1872, 5837, 2559, 5258, 
+Group.waypoints11 = 3809, 4862, 4895, 5519, 1872, 5837, 
+Group.waypoints12 = 3809, 4862, 4895, 5519, 2559, 5258, 4492, 3250, 
+Group.waypoints13 = 3809, 4862, 1507, 3076, 4492, 3250, 
+Group.waypoints14 = 3809, 4862, 1507, 3076, 
+Group.waypoints15 = 3809, 4862, 4895, 5519, 
+Group.waypoints16 = 3809, 4862, 2559, 5258, 1872, 5837, 2559, 5258, 
+Group.waypoints17 = 3809, 4862, 4895, 5519, 1507, 3076, 4492, 3250, 
+Group.waypoints18 = 3809, 4862, 1872, 5837, 4895, 5519, 
+Group.waypoints19 = 3809, 4862, 4492, 3250, 1872, 5837, 1507, 3076, 
+Group.waypoints20 = 3809, 4862, 2559, 5258, 4492, 3250, 4895, 5519, 
+Group.waypoints21 = 3809, 4862, 2559, 5258, 1872, 5837, 
+Group.waypoints22 = 3809, 4862, 1507, 3076, 
+Group.waypoints23 = 3809, 4862, 2559, 5258, 
+Group.waypoints24 = 3809, 4862, 1872, 5837, 4492, 3250, 
+Group.waypoints25 = 3809, 4862, 4895, 5519, 1507, 3076, 4895, 5519, 
+Group.waypoints26 = 3809, 4862, 4492, 3250, 2559, 5258, 
+Group.waypoints27 = 3809, 4862, 1872, 5837, 1507, 3076, 4895, 5519, 
+Group.waypoints28 = 3809, 4862, 2559, 5258, 1507, 3076, 
+Group.waypoints29 = 3809, 4862, 1872, 5837, 4492, 3250, 
+Group.waypoints30 = 3809, 4862, 2559, 5258, 4492, 3250, 
 
-Group.firstCD= 220
+Group.firstCD= 229
 
 # Walking speeds
 #Group.speed = 0.12, 0.15
 
 # Message TTL of 300 minutes (5 hours)
-Group.msgTtl = 720
+Group.msgTtl = 60
 
 Group.groupID = n
 
@@ -142,25 +145,25 @@ Group2.nrofInterfaces = 2
 Group2.interface1 = wifiInterface
 Group2.interface2 = btInterface
 #Group2.interface2 = ClusterInterface
-Group2.initialEnergy = 800, 1000
+#Group2.initialEnergy = 1500, 2000
 
 #Volunteer
 Group3.groupID = n
-Group3.nrofHosts= 19
+Group3.nrofHosts= 9
 Group3.movementModel = ExternalMovement
 Group3.nrofInterfaces = 1
 Group3.interface1 =btInterface
 #Group3.waitTime = 120,360
 #Group3.speed = 1, 15
-Group3.initialEnergy = 800, 1000
+#Group3.initialEnergy = 1500, 2000
 
 #Survivor
 Group4.groupID = n
-Group4.nrofHosts= 195
+Group4.nrofHosts= 214
 Group4.movementModel = ExternalMovement
 #Group4.waitTime = 60,120
 #Group4.speed = 1, 5
-Group4.initialEnergy = 300, 500
+Group4.initialEnergy = 800, 1200
 Group4.nrofInterfaces = 1
 Group4.interface1 = btInterface
 
@@ -170,8 +173,8 @@ Group5.nrofHosts= 30
 Group5.movementModel = InCenterVehicleMovement
 Group5.nrofInterfaces = 1
 Group5.interface1 = wifiInterface
-Group5.speed = 1, 5
-Group5.initialEnergy = 800, 1000
+Group5.speed = 5, 10
+#Group5.initialEnergy = 1000, 1200
 
 
 ## Message creation parameters 
@@ -184,14 +187,16 @@ Events1.class = [MessageEventGenerator]
 Events1.interval = [30, 60] 
 
 # Message sizes (500kB - 1MB)
-Events1.size = 250k, 500k
+Events1.size = 500k, 1M
 
 # range of message source/destination addresses
-Events1.hosts= 25, 195
+Events1.hosts= 15, 214
 Events1.tohosts= 0, 1
 # Message ID prefix
 Events1.prefix = M
-Events1.time = 1800,21600
+#Events1.time = [0, 1800; 0, 19800; 0, 5400; 0, 9000; 0, 12600; 0, 16200]
+
+Events1.time = [0, 2700; 0, 20700; 0, 6300; 0, 9900; 0, 13500; 0, 17100]
 
 ## Movement model settings
 # seed for movement models' pseudo random number generator (default = 0)
@@ -210,7 +215,7 @@ MapBasedMovement.mapFile1 = data/bhaktapurRoads.osm.wkt
 ## Reports - all report names have to be valid report classes
 
 # how many reports to load
-Report.nrofReports = 3
+Report.nrofReports = 4
 # length of the warm up period (simulated seconds)
 Report.warmup = 0
 # default directory of reports (can be overridden per Report with output setting)
@@ -221,9 +226,9 @@ Report.reportDir = reports/
 Report.report1 = MessageStatsReport
 Report.report2 = DeliveredMessagesReport
 Report.report3 = EnergyLevelReport
-#Report.report5 = EventLogReport
+Report.report4 = EventLogReport
 #Report.report2 = AdjacencyGraphvizReport
-Report.granularity = 900
+Report.granularity = 600
 
 ## Optimization settings -- these affect the speed of the simulation
 ## see World class for details.

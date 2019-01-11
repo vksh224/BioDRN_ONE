@@ -69,7 +69,7 @@ Group.lastCCID = 1
 Group.failedNodesSamplingInterval = 1800
 Group.sendQueue = 1
 
-Group.neighborListFile = [NeighborList/0_2/K8_159.txt]
+Group.neighborListFile = [NeighborList/0_2/K3_159.txt]
 #; NeighborList/0_2/B_159.txt;NeighborList/0_2/B_ideal_159.txt;NeighborList/0_2/S_159.txt; NeighborList/0_2/R_159.txt; NeighborList/0_2/K2_159.txt; NeighborList/0_2/K4_159.txt] 
 
 Group.failedNodeListFile = FailedNodeList/0_2/failed_nodelist_159.txt
